@@ -175,15 +175,38 @@ function populateVoiceList() {
   if (typeof speechSynthesis === "undefined") {
     return;
   }
+  
   const voices = speechSynthesis.getVoices();
-  for (let i = 0; i < voices.length; i++) {
-    const option = document.createElement("option");
-    option.textContent = `${voices[i].name} (${voices[i].lang})`;
-
-    option.setAttribute("data-lang", voices[i].lang);
-    option.setAttribute("data-name", voices[i].name);
-    document.getElementById("voiceSelect").appendChild(option);
-  }
+  const voiceSelect = document.getElementById("voiceSelect");
+  voiceSelect.innerHTML = '';
+  
+  // Add Thai voices first
+  voices.forEach(voice => {
+    if (voice.lang.startsWith('th')) {
+      const option = document.createElement("option");
+      option.textContent = `${voice.name} (${voice.lang})`;
+      option.setAttribute("data-lang", voice.lang);
+      option.setAttribute("data-name", voice.name);
+      voiceSelect.appendChild(option);
+    }
+  });
+  
+  // Add a separator
+  const separator = document.createElement("option");
+  separator.disabled = true;
+  separator.textContent = "──────────";
+  voiceSelect.appendChild(separator);
+  
+  // Add other voices
+  voices.forEach(voice => {
+    if (!voice.lang.startsWith('th')) {
+      const option = document.createElement("option");
+      option.textContent = `${voice.name} (${voice.lang})`;
+      option.setAttribute("data-lang", voice.lang);
+      option.setAttribute("data-name", voice.name);
+      voiceSelect.appendChild(option);
+    }
+  });
 }
 
 function exportSettings() {
