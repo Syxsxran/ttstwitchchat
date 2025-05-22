@@ -1,0 +1,17 @@
+{
+  "name": "twitch-tts",
+  "version": "1.0.0",
+  "description": "Twitch Text-to-Speech with Thai language support",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "vite": "^4.3.9"
+  }
+}
